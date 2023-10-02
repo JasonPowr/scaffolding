@@ -376,7 +376,7 @@ spec:
         - name: name
           value: go-unit-test
         - name: bundle
-          value: quay.io/japower/scaffolding-unit-test@sha256:f918848c5ba20c21667cc7d812bdfe61a155edda501179c4c0b4b444993bcc9e
+          value: quay.io/securesign/scaffolding-unit-test@sha256:0cc9a9c7c2c452f42eb7877c0d09888d0716e9689cce4abf980f57d8b7d3a995
         - name: kind
           value: task
         resolver: bundles
