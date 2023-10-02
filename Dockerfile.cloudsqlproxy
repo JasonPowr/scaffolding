@@ -18,5 +18,11 @@ RUN chgrp -R 0 /${HOME} && chmod -R g=u /${HOME}
 
 WORKDIR ${HOME}
 
+LABEL description="Cloud SQL Proxy is a tool that makes connecting to Cloud sql databases easier."
+LABEL io.k8s.description="Cloud SQL Proxy is a tool that makes connecting to Cloud sql databases easier."
+LABEL io.k8s.display-name="Cloud SQL Proxy container image for redhat trusted artifact signer."
+LABEL io.openshift.tags="cloud-sql-proxy redhat trusted artifact signer."
+LABEL summary="Provides the binary for cloudsqlproxy"
+
 # Set the binary as the entrypoint of the container
 ENTRYPOINT ["cloudsqlproxy"]
