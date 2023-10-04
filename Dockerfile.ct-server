@@ -2,10 +2,9 @@ FROM registry.access.redhat.com/ubi9/go-toolset@sha256:e91cbbd0b659498d029dd43e0
 USER root
 WORKDIR /ct_server
 RUN git config --global --add safe.directory /ct_server
-COPY hack/build-assets/certificate-transparency-go-1.1.6.tar.gz /ct_server/
+COPY hack/build-assets/certificate-transparency-go-1.1.6/certificate-transparency-go-1.1.6.tar.gz /ct_server/
 RUN tar -zxvf certificate-transparency-go-1.1.6.tar.gz
 WORKDIR /ct_server/certificate-transparency-go-1.1.6/trillian/ctfe/ct_server
-RUN go mod download
 RUN go build ./
 
 # Install server
