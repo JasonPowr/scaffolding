@@ -75,6 +75,7 @@ fi
 # Move overlays to root
 if [[ -d redhat/overlays ]]; then
   mv redhat/overlays/* .
+  cp -a redhat/overlays/. ./
 fi
 
 # Move build-assets to hack/build-assets
@@ -94,10 +95,10 @@ git push -f origin "${redhat_ref}-ci"
 
 if hash hub 2>/dev/null; then
    # Test if there is already a sync PR in
-   COUNT=$(hub api -H "Accept: application/vnd.github.v3+json" repos/securesign/"${REPO_NAME}"/pulls --flat \
+   COUNT=$(hub api -H "Accept: application/vnd.github.v3+json" repos/JasonPowr/"${REPO_NAME}"/pulls --flat \
     | grep -c "${robot_trigger_msg}") || true
    if [ "$COUNT" = "0" ]; then
-      hub pull-request --no-edit -l "kind/sync-fork-to-upstream" -b securesign/"${REPO_NAME}":"${redhat_ref}" -h securesign/"${REPO_NAME}":"${redhat_ref}"-ci -m "${robot_trigger_msg}"
+      hub pull-request --no-edit -l "kind/sync-fork-to-upstream" -b JasonPowr/"${REPO_NAME}":"${redhat_ref}" -h JasonPowr/"${REPO_NAME}":"${redhat_ref}"-ci -m "${robot_trigger_msg}"
    fi
 else
    echo "hub (https://github.com/github/hub) is not installed, so you'll need to create a PR manually."
