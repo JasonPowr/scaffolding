@@ -1,5 +1,5 @@
 # Build the verifyfulcio binary
-FROM registry.access.redhat.com/ubi9/go-toolset@wrongSha AS build-env
+FROM registry.access.redhat.com/ubi9/go-toolset@sha256:wrongSha AS build-env
 WORKDIR /ctlog-verifyfulcio
 RUN git config --global --add safe.directory /ctlog-verifyfulcio
 
@@ -9,7 +9,7 @@ USER root
 RUN make build-ctlog-verifyfulcio
 
 # Install server
-FROM registry.access.redhat.com/ubi9/ubi-minimal@wrongSha
+FROM registry.access.redhat.com/ubi9/ubi-minimal@sha256:wrongSha
 
 COPY --from=build-env /ctlog-verifyfulcio/verifyfulcio /usr/local/bin/verifyfulcio
 RUN chown root:0 /usr/local/bin/verifyfulcio && chmod g+wx /usr/local/bin/verifyfulcio

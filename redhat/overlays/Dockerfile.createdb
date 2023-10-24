@@ -1,5 +1,5 @@
 # Build the createdb binary
-FROM registry.access.redhat.com/ubi9/go-toolset@wrongSha AS build-env
+FROM registry.access.redhat.com/ubi9/go-toolset@sha256:wrongSha AS build-env
 WORKDIR /createdb
 RUN git config --global --add safe.directory /createdb
 
@@ -8,7 +8,7 @@ USER root
 RUN make build-trillian-createdb
 
 # Install server
-FROM registry.access.redhat.com/ubi9/ubi-minimal@wrongSha
+FROM registry.access.redhat.com/ubi9/ubi-minimal@sha256:wrongSha
 COPY --from=build-env /createdb/createdb /usr/local/bin/createdb
 RUN chown root:0 /usr/local/bin/createdb && chmod g+wx /usr/local/bin/createdb
 

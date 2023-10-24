@@ -1,5 +1,5 @@
 # Build the createcerts binary
-FROM registry.access.redhat.com/ubi9/go-toolset@wrongSha AS build-env
+FROM registry.access.redhat.com/ubi9/go-toolset@sha256:wrongSha AS build-env
 WORKDIR /createcerts
 RUN git config --global --add safe.directory /createcerts
 
@@ -8,7 +8,7 @@ USER root
 RUN make build-fulcio-createcerts
 
 # Install server
-FROM registry.access.redhat.com/ubi9/ubi-minimal@wrongSha
+FROM registry.access.redhat.com/ubi9/ubi-minimal@sha256:wrongSha
 COPY --from=build-env /createcerts/createcerts /usr/local/bin/createcerts
 RUN chown root:0 /usr/local/bin/createcerts && chmod g+wx /usr/local/bin/createcerts
 

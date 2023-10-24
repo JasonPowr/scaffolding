@@ -1,5 +1,5 @@
 # Build the createtree binary
-FROM registry.access.redhat.com/ubi9/go-toolset@wrongSha AS build-env
+FROM registry.access.redhat.com/ubi9/go-toolset@sha256:wrongSha AS build-env
 WORKDIR /createtree
 RUN git config --global --add safe.directory /createtree
 
@@ -8,7 +8,7 @@ USER root
 RUN make build-trillian-createtree
 
 # Install server
-FROM registry.access.redhat.com/ubi9/ubi-minimal@wrongSha
+FROM registry.access.redhat.com/ubi9/ubi-minimal@sha256:wrongSha
 COPY --from=build-env /createtree/createtree /usr/local/bin/createtree
 RUN chown root:0 /usr/local/bin/createtree && chmod g+wx /usr/local/bin/createtree
 
