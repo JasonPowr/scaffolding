@@ -55,7 +55,7 @@ jobs:
               COMMIT_SHA=$(git rev-parse HEAD)
               git checkout -B "Update-image-version-$midstream" origin/$midstream
               git cherry-pick "$COMMIT_SHA"
-              git push origin "Update-image-version-$midstream"
+              git push -f origin "Update-image-version-$midstream"
               gh pr create --base $midstream --head Update-image-version --title ":robot: Update image version in Dockerfiles" --body "This is an automated PR, which updates the Dockerfile versions to their latest versions."
           done
         env:
