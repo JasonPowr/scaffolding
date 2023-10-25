@@ -50,10 +50,10 @@ jobs:
           gh pr create --base main --head Update-image-version --title ":robot: Update image version in Dockerfiles" --body "This is an automated PR, which updates the Dockerfile versions to their latest versions."
           git checkout main
 
-          MIDSTREAM_REF=$(echo $MIDSTREAM_REF | tr ',' '\n' | head -n -1 | tr '\n' ',')
-          for midstream in $MIDSTREAM_REF; do
-            git push -f main:$midstream
-            gh pr create --base $midstream --head Update-image-version --title ":robot: Update image version in Dockerfiles" --body "This is an automated PR, which updates the Dockerfile versions to their latest versions."
+          IFS=',' read -ra MID_STR <<< "$MIDSTREAM_REF"
+          for midstream in "${MID_STR[@]}"; do
+              git push -f main:$midstream
+              gh pr create --base $midstream --head Update-image-version --title ":robot: Update image version in Dockerfiles" --body "This is an automated PR, which updates the Dockerfile versions to their latest versions."
           done
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
