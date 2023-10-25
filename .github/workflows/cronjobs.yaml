@@ -17,7 +17,7 @@ jobs:
           git config --global user.name "${GITHUB_ACTOR}"
           
           git fetch origin
-          MIDSTREAM_REF=$(git branch -r | grep 'origin/midstream-v' | awk -F "/" '{print $2}')
+          MIDSTREAM_REF=$(git branch -r | grep 'origin/midstream-v' | awk -F "/" '{print $2}' | tr '\n' ',')
           echo "MIDSTREAM_REF=$MIDSTREAM_REF" >> $GITHUB_ENV
           git checkout -B Update-image-version origin/main
 
@@ -49,6 +49,7 @@ jobs:
           git push -f origin Update-image-version
           gh pr create --base main --head Update-image-version --title ":robot: Update image version in Dockerfiles" --body "This is an automated PR, which updates the Dockerfile versions to their latest versions."
 
+          MIDSTREAM_REF=$(echo $MIDSTREAM_REF | tr ',' '\n' | head -n -1 | tr '\n' ',')
           for midstream in $MIDSTREAM_REF; do
             git push -f main:$midstream
             gh pr create --base $midstream --head Update-image-version --title ":robot: Update image version in Dockerfiles" --body "This is an automated PR, which updates the Dockerfile versions to their latest versions."
