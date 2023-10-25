@@ -31,8 +31,6 @@ jobs:
                 grep -rl "registry.access.redhat.com/$image@$CURRENT_SHA" . | xargs sed -i "s#registry.access.redhat.com/$image@$CURRENT_SHA#registry.access.redhat.com/$image@$LATEST_SHA#g"
                 git add .
                 git commit -m ":robot: Update $image image ref in Dockerfiles from ${CURRENT_SHA:7:11} to ${LATEST_SHA:7:11}"
-                COMMIT_SHAS+=$(git rev-parse HEAD)" "
-                echo "COMMIT_SHA=$COMMIT_SHA" >> $GITHUB_ENV
                 echo "IMAGE_UPDATED=true" >> $GITHUB_ENV
               fi
           done
@@ -52,13 +50,11 @@ jobs:
           gh pr create --base main --head Update-image-version --title ":robot: Update image version in Dockerfiles" --body "This is an automated PR, which updates the Dockerfile versions to their latest versions."
           git checkout main
 
+          COMMIT_SHA=$(git log Update-image-version -n 2 --pretty=format:"%H" | tr '\n' ' ')
           IFS=',' read -ra MID_STR <<< "$MIDSTREAM_REF"
           for midstream in "${MID_STR[@]}"; do
               git checkout -B Update-image-version-$midstream origin/$midstream
-              IFS=' ' read -ra SHA_ARRAY <<< "$COMMIT_SHAS"
-              for sha in "${SHA_ARRAY[@]}"; do
-                  git cherry-pick "$sha"
-              done
+              git cherry-pick $COMMIT_SHA
               git push -f origin Update-image-version-$midstream
               gh pr create --base $midstream --head Update-image-version-$midstream --title ":robot: Update image version in Dockerfiles" --body "This is an automated PR, which updates the Dockerfile versions to their latest versions."
           done
