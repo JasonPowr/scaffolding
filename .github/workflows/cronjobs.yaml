@@ -46,5 +46,6 @@ jobs:
         run: |
           git push -f origin Update-image-version
           gh pr create --base main --head Update-image-version --title ":robot: Update image version in Dockerfiles" --body "This is an automated PR, which updates the Dockerfile versions to their latest versions."
+          gh pr create --base midstream-v0.6.5 --head Update-image-version --title ":robot: Update image version in Dockerfiles" --body "This is an automated PR, which updates the Dockerfile versions to their latest versions."
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
