@@ -7,7 +7,7 @@ on:
     
 jobs:
   check-image-version:
-    uses: JasonPowr/actions/.github/workflows/check-image-version.yaml@add-image-update-reusable-action
+    uses: securesign/actions/.github/workflows/check-image-version.yaml@main
     with:
       mainRef: main
     secrets:
