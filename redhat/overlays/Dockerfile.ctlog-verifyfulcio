@@ -9,7 +9,7 @@ USER root
 RUN make build-ctlog-verifyfulcio
 
 # Install server
-FROM registry.access.redhat.com/ubi9/ubi-minimal@sha256:93d357bf8fae4a4965515898504d3c45b7421a56fc45fdd52651535a25af1023
+FROM registry.access.redhat.com/ubi9/ubi-minimal@sha256:b40f52aa68b29634ff45429ee804afbaa61b33de29ae775568933c71610f07a4
 
 COPY --from=build-env /ctlog-verifyfulcio/verifyfulcio /usr/local/bin/verifyfulcio
 RUN chown root:0 /usr/local/bin/verifyfulcio && chmod g+wx /usr/local/bin/verifyfulcio
