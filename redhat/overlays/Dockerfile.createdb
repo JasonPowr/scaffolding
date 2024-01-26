@@ -8,7 +8,7 @@ USER root
 RUN make build-trillian-createdb
 
 # Install server
-FROM registry.access.redhat.com/ubi9/ubi-minimal@sha256:93d357bf8fae4a4965515898504d3c45b7421a56fc45fdd52651535a25af1023
+FROM registry.access.redhat.com/ubi9/ubi-minimal@sha256:06d06f15f7b641a78f2512c8817cbecaa1bf549488e273f5ac27ff1654ed33f0
 COPY --from=build-env /createdb/createdb /usr/local/bin/createdb
 RUN chown root:0 /usr/local/bin/createdb && chmod g+wx /usr/local/bin/createdb
 
