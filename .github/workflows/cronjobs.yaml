@@ -7,7 +7,7 @@ on:
     
 jobs:
   check-image-version:
-    uses: japower/actions/.github/workflows/check-image-version.yaml@add-auth-for-registry-redhat-io
+    uses: JasonPowr/actions/.github/workflows/check-image-version.yaml@add-auth-for-registry-redhat-io
     strategy:
       matrix:
         branch: [main, redhat-v0.6]
