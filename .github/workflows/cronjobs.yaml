@@ -7,7 +7,7 @@ on:
     
 jobs:
   check-image-version:
-    uses: securesign/actions/.github/workflows/check-image-version.yaml@main
+    uses: japower/actions/.github/workflows/check-image-version.yaml@add-auth-for-registry-redhat-io
     strategy:
       matrix:
         branch: [main, redhat-v0.6]
@@ -15,3 +15,4 @@ jobs:
       branch: ${{ matrix.branch }}
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
+      registry_redhat_io_credentials: ${{ secrets.REGISTRY_REDHAT_IO_CREDENTIALS }}
